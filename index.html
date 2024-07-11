@@ -83,66 +83,6 @@
         </div>
     </section>
 
-    <!-- services section start -->
-    <!-- <section class="services" id="services">
-        <div class="max-width">
-            <h2 class="title">My services</h2>
-            <div class="serv-content">
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-code"></i>
-                        <div class="text">Web Developement</div>
-                        <p>I provide full-stack web development services, specializing in creating dynamic, responsive,
-                            and user-friendly websites. From front-end to back-end, I ensure your website meets modern
-                            standards and best practices.
-                        </p><br>
-                        <ul>
-                            <li>Custom website development</li>
-                            <li>Responsive design</li>
-                            <li>E-commerce solutions</li>
-                            <li>Content management systems (CMS)</li>
-                            <li>Web maintenance and support</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-code"></i>
-                        <div class="text">App Developement</div>
-                        <p>I offer mobile app development services for Android platforms. My focus is on
-                            building intuitive and engaging applications that provide a seamless user experience.
-                        </p><br>
-                        <ul>
-                            <li>Native and cross-platform app development</li>
-                            <li>User interface (UI) and user experience (UX) design</li>
-                            <li>Integration with web services and APIs</li>
-                            <li>App testing and quality assurance</li>
-                            <li>App maintenance and updates</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-code"></i>
-                        <div class="text">Freelancing</div>
-                        <p>As a freelance developer, I am available for a variety of project-based work. Whether you
-                            need assistance with a specific aspect of your project or a full end-to-end solution, I
-                            bring expertise to meet your needs.
-                        </p><br>
-                        <ul>
-                            <li>Project-based development</li>
-                            <li>Consultation and project planning</li>
-                            <li>Code review and optimization</li>
-                            <li>Flexible work arrangements</li>
-                            <li>Dedicated support and communication</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section> -->
-
     <section class="services" id="services">
         <div class="max-width">
             <h2 class="title">My Services</h2>
@@ -514,37 +454,71 @@
 
         // Click functioanlity for services and certification cards..
         document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll(".card.clickable");
-            let activeCard = null;
-
-            const certificationCards = document.querySelectorAll('.work .flip-card');
-
-            cards.forEach(card => {
-                card.addEventListener("click", function () {
-                    if (activeCard && activeCard !== card) {
-                        activeCard.classList.remove("active");
-                    }
-                    card.classList.toggle("active");
-                    activeCard = card.classList.contains("active") ? card : null;
-                });
-            });
-
-
-            if (window.innerWidth <= 947) {
-                serviceCards.forEach(card => {
-                    card.addEventListener('click', () => toggleCardDetails(card));
-                });
-
-                certificationCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const flipInner = card.querySelector('.flip-card-inner');
-                        if (flipInner) {
-                            flipInner.style.transform = flipInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
-                        }
-                    });
-                });
-            }
-        });
+            const cards = document.querySelectorAll(".card.clickable");
+            const certificationCards = document.querySelectorAll('.work .flip-card');
+            let activeCard = null;
+ 
+            // Function to handle card clicks
+            function handleCardClick(card) {
+                if (activeCard && activeCard !== card) {
+                    if (activeCard.classList.contains('flip-card')) {
+                        activeCard.querySelector('.flip-card-inner').style.transform = '';
+                    }
+                    activeCard.classList.remove("active");
+                }
+                card.classList.toggle("active");
+                if (card.classList.contains('flip-card')) {
+                    const flipInner = card.querySelector('.flip-card-inner');
+                    if (flipInner) {
+                        flipInner.style.transform = flipInner.style.transform === 'rotateY(180deg)' ? '' : 'rotateY(180deg)';
+                    }
+                }
+                activeCard = card.classList.contains("active") ? card : null;
+            }
+ 
+            // Add click event listeners to service cards
+            cards.forEach(card => {
+                card.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    handleCardClick(card);
+                });
+            });
+ 
+            // Add click event listeners to certification cards
+            certificationCards.forEach(card => {
+                card.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    handleCardClick(card);
+                });
+            });
+ 
+            // Add click event listener to the document to handle deactivating cards
+            document.addEventListener('click', function (event) {
+                if (activeCard && !activeCard.contains(event.target)) {
+                    if (activeCard.classList.contains('flip-card')) {
+                        activeCard.querySelector('.flip-card-inner').style.transform = '';
+                    }
+                    activeCard.classList.remove("active");
+                    activeCard = null;
+                }
+            });
+ 
+            // Responsive behavior for cards
+            if (window.innerWidth <= 1104) {
+                cards.forEach(card => {
+                    card.addEventListener('click', function () {
+                        handleCardClick(card);
+                    });
+                });
+ 
+                certificationCards.forEach(card => {
+                    card.addEventListener('click', function () {
+                        handleCardClick(card);
+                    });
+                });
+            }
+        });
+                            
 
     </script>
 </body>
