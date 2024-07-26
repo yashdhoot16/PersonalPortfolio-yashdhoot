@@ -571,7 +571,7 @@ section .title::after {
 
 
 .flip-card-back ul {
-    padding-left: 20px; /* Adds space for bullets */
+    padding-left: 40px; /* Adds space for bullets */
     list-style-type: disc;
 }
 
@@ -1019,6 +1019,15 @@ footer span a:hover {
 
 /* responsive media query start */
 @media (max-width: 1104px) {
+
+    .flip-card-back ul{
+        padding-left:30px;
+    }
+
+    .flip-card-back ul li{
+        font-size:13px;
+    }
+    
     .about .about-content .left img {
         height: 350px;
         width: 350px;
@@ -1301,6 +1310,14 @@ footer span a:hover {
 
 @media (max-width:800px){
 
+    .flip-card-back ul{
+        padding-left:30px;
+    }
+
+    .flip-card-back ul li{
+        font-size:12px;
+    }
+
     .work .work-content .left .flip-card {
         width: 480px;
         height: 250px;
@@ -1365,6 +1382,10 @@ footer span a:hover {
 }
 
 @media (max-width: 600px){
+
+    .flip-card-back ul .insitute{
+        font-size:8px;
+    }
     .work .work-content .left .flip-card {
         width: 380px;
         height: 250px; 
@@ -1506,6 +1527,14 @@ footer span a:hover {
 }
 
 @media (max-width:400px){
+
+    .flip-card-back ul{
+        padding-left:30px;
+    }
+
+    .flip-card-back ul li{
+        font-size:10px;
+    }
     
     .work .work-content .right {
         margin-left: 20px;
